@@ -9,7 +9,7 @@ st.set_page_config(page_title="Product Recommender", page_icon="🛒", layout="w
 
 @st.cache_data
 def load_all(path):
-    df = pd.read_csv(path)
+    df = pd.read_csv(path,compression='gzip')
 
     catalogue = (
         df.groupby(['product_id', 'product_category_name_english'])
@@ -86,7 +86,7 @@ def get_recommendations(customer_id, catalogue, profiles, state_top, top_n, min_
 
 st.sidebar.title("🛒 Product Recommender")
 st.sidebar.markdown("---")
-csv_path   = st.sidebar.text_input("CSV file path", value="https://drive.google.com/uc?export=download&id=/1lFSkL-wTq6SEAj9l7lzRt8icZ5iUITkN/view?usp=sharing")
+csv_path   = st.sidebar.text_input("CSV file path", value="master_df.csv.gz")
 top_n      = st.sidebar.slider("Number of recommendations", 3, 10, 5)
 min_rating = st.sidebar.slider("Minimum rating", 1.0, 5.0, 4.0, 0.1)
 
